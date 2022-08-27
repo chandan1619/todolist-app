@@ -4,34 +4,52 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
 
+    <form action="/fetch" method="post">
+
     <div class="box" id = "heading">
-      <h1><%= kindOfDay  %> </h1>
+      <h1> Select Date </h1>
+      <input type="date" name="currentDate" id="headerDate" value ="<%= date %>" onchange="this.form.submit()"  required>
     </div>
+
+
+
+    </form>
 
 
     <div class="box">
 
 
-        <% for (var i = 0 ; i < items.length ;  i++ ) { %>
+        <% items.forEach(function(item){ %>
+          <form action="/delete" method="post">
+
+
           <div class="item">
-            <input type="checkbox">
-          <p><%= items[i] %> </p>
+            <input type="checkbox" name="checkbox" value ="<%= item._id %>" onchange="this.form.submit()" >
+          <p><%= item.name %> </p>
           </div>
-        <% } %>
+
+           <input type="hidden" id="custId" name="hidden" value = <%= date%>>
+
+          </form>
+        <% }) %>
 
 
 
     <form class ="item" action="/" method="post">
 
       <input type="text" name="listItem" placeholder="New Item" autocomplete="off" required>
+      <input type="hidden"  class="date" name="currentDate" value= <%= date%> onchange="this.form.submit()" required>
+
       <button type="submit" name="submit">+</button>
 
     </form>
 
 </div>
 
-  </body>
+<script type="text/javascript" src="script/script.js"></script>
+</body>
 </html>
